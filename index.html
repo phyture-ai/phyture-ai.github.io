@@ -2,57 +2,562 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>智遇未来 · 内部分享</title>
-<script src="/auth.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zphyture AI 智遇未来 · 让智能干体力活</title>
+<meta name="description" content="Zphyture AI（深圳市智遇未来科技有限公司）研发面向真实世界的物理大模型，已在深圳真实工厂完成落地验证。核心团队来自清华大学与中国人民大学。">
+<meta property="og:title" content="Zphyture AI 智遇未来 · 让智能干体力活">
+<meta property="og:description" content="我们研发面向真实世界的物理大模型，并把它交付到真实的生产现场。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://phyture.ai">
+<!-- 临时占位 favicon（logo 未定稿）：深蓝圆角方块 + 青绿 Z -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1E36'/%3E%3Ctext x='50' y='52' font-family='Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='%2300C2A8' text-anchor='middle' dominant-baseline='central'%3EZ%3C/text%3E%3C/svg%3E">
+
 <style>
-  :root { color-scheme: light dark; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
-    background: #0e1116;
-    color: #e6e9ef;
-  }
-  main { flex: 1; max-width: 760px; margin: 0 auto; padding: 80px 24px 40px; width: 100%; }
-  h1 { font-size: 28px; font-weight: 700; letter-spacing: .5px; margin: 0 0 8px; }
-  .sub { color: #8b94a7; margin: 0 0 40px; font-size: 15px; }
-  .section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: #6b7488; margin: 0 0 16px; }
-  ul.cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
-  a.card {
-    display: block; padding: 18px 20px; border-radius: 12px;
-    background: #161b22; border: 1px solid #232a35;
-    text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
-  }
-  a.card:hover { border-color: #3b82f6; transform: translateY(-1px); }
-  a.card .t { font-size: 16px; font-weight: 600; }
-  a.card .d { font-size: 13px; color: #8b94a7; margin-top: 4px; }
-  footer { text-align: center; padding: 24px; font-size: 12px; color: #6b7488; border-top: 1px solid #1c222b; }
-  footer a { color: #6b7488; text-decoration: none; }
-  footer a:hover { color: #8b94a7; text-decoration: underline; }
+:root{
+  --navy:#0F1E36; --teal:#008C7A; --acc:#00C2A8;
+  --body:#263238; --muted:#7A8BA3; --line:#E3EAF2; --grey:#F5F7FA; --mint:#E9F7F4;
+  --wrap:1120px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--body);background:#fff;line-height:1.75;
+  font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+
+/* ---------- 字标：Z 处理集中在这里，换方案只改这一块 ---------- */
+/* 深浅背景统一用 --acc(#00C2A8)；Z 略放大以压住 phyture */
+/* font-size 是唯一要调的数；line-height:0 防止它撑高行盒，
+   margin-right 抵消字标的字距，让 Z 贴住 p */
+.z{color:var(--acc);font-weight:900;font-size:1.42em;line-height:0;margin-right:-1px}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;flex-direction:column;line-height:1.2}
+.brand b{font-size:16px;font-weight:800;letter-spacing:1.6px;color:var(--navy);line-height:1.25}
+/* 只命中中文副标，不要写成 .brand span —— 那样会连 .z 一起吃掉 */
+.brand .cn{font-size:11px;letter-spacing:4px;color:var(--muted)}
+.navlinks{display:flex;align-items:center;gap:30px}
+.navlinks a{font-size:14.5px;color:#3d4b5c;transition:color .18s}
+.navlinks a:hover{color:var(--teal)}
+.langbtn{border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:5px 14px;font-size:12.5px;font-weight:700;letter-spacing:.6px;color:var(--navy);
+  cursor:pointer;font-family:inherit;transition:.18s}
+.langbtn:hover{border-color:var(--acc);color:var(--teal)}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:6px;color:var(--navy)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--navy);color:#fff;padding:116px 0 0}
+/* 克制：一层极淡的冷光，不用网格、不用双重光晕 */
+.hero::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(900px 520px at 8% 0%, rgba(0,194,168,.10), transparent 66%)}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{font-size:12px;letter-spacing:3.6px;color:var(--acc);font-weight:700;
+  text-transform:uppercase;margin-bottom:26px}
+.hero h1{font-size:clamp(38px,6.6vw,72px);line-height:1.14;font-weight:800;
+  letter-spacing:-.5px;margin-bottom:28px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p.lede{font-size:clamp(16px,2vw,19.5px);color:#c3d0e0;max-width:660px;line-height:1.85}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:38px 0 0}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:12px 24px;
+  font-size:14.5px;font-weight:600;transition:.2s;border:1px solid transparent;cursor:pointer}
+.btn-p{background:var(--acc);color:#03231e}
+.btn-p:hover{background:#25d8bf}
+.btn-g{border-color:rgba(255,255,255,.28);color:#fff}
+.btn-g:hover{border-color:var(--acc);color:var(--acc)}
+.capstrip{position:relative;z-index:2;margin-top:82px;border-top:1px solid rgba(255,255,255,.13);
+  padding:22px 0 26px}
+.caps{display:flex;flex-wrap:wrap;gap:10px 34px;align-items:center}
+.caps span{font-size:13.4px;color:#9fb3cb;letter-spacing:.4px;display:flex;align-items:center;gap:9px}
+.caps span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--acc);flex:none}
+
+/* ---------- sections ---------- */
+section{padding:106px 0}
+.sec-grey{background:var(--grey)}
+.sec-dark{background:var(--navy);color:#fff}
+.kicker{font-size:12px;letter-spacing:3.4px;font-weight:700;color:var(--teal);
+  text-transform:uppercase;margin-bottom:18px}
+.sec-dark .kicker{color:var(--acc)}
+h2{font-size:clamp(26px,3.6vw,40px);line-height:1.28;font-weight:800;color:var(--navy);
+  letter-spacing:-.4px;max-width:20em}
+.sec-dark h2{color:#fff}
+.sub{margin-top:20px;font-size:17px;color:#4a5a6b;max-width:44em;line-height:1.86}
+.sec-dark .sub{color:#c3d0e0}
+
+/* ---------- chain ---------- */
+.chain{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:62px;
+  border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden}
+.step{padding:30px 24px 32px;border-right:1px solid rgba(255,255,255,.13);position:relative}
+.step:last-child{border-right:0}
+.step i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:2.2px;color:var(--acc)}
+.step b{display:block;font-size:17px;font-weight:800;color:#fff;margin:11px 0 9px}
+.step span{font-size:13.6px;color:#9fb3cb;line-height:1.78;display:block}
+.loop{margin-top:22px;display:flex;align-items:center;gap:13px;font-size:14.4px;color:#c3d0e0}
+.loop svg{flex:none;color:var(--acc)}
+
+/* ---------- products ---------- */
+.prods{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:56px}
+.prod{background:#fff;border:1px solid var(--line);border-radius:10px;padding:34px 32px 36px;
+  transition:border-color .18s}
+.prod:hover{border-color:#bfd2e4}
+.prod .pn{font-size:11.5px;letter-spacing:2.4px;font-weight:800;color:var(--acc)}
+.prod h3{font-size:22px;font-weight:800;color:var(--navy);margin:12px 0 14px;line-height:1.4}
+.prod p{font-size:15px;color:#54646f;line-height:1.86}
+.prod ul{list-style:none;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.prod li{font-size:14.2px;color:#54646f;line-height:1.72;padding-left:18px;position:relative;
+  margin-bottom:11px}
+.prod li:last-child{margin-bottom:0}
+.prod li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;
+  border-radius:50%;background:var(--acc)}
+
+/* ---------- investors ---------- */
+.invest-wrap{padding:0 0 96px}
+.invest{border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:10px;
+  background:var(--grey);padding:34px 36px;display:flex;align-items:center;
+  justify-content:space-between;gap:32px;flex-wrap:wrap}
+.invest .kicker{margin-bottom:10px}
+.invest h3{font-size:21px;font-weight:800;color:var(--navy);margin-bottom:9px}
+.invest p{font-size:14.8px;color:#54646f;line-height:1.86;max-width:46em}
+.btn-o{border-color:var(--navy);color:var(--navy);white-space:nowrap}
+.btn-o:hover{background:var(--navy);color:#fff}
+
+/* ---------- team ---------- */
+.unis{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.uni{border:1px solid var(--line);background:#fff;border-radius:10px;padding:15px 26px}
+.uni b{display:block;font-size:17px;font-weight:800;color:var(--navy);letter-spacing:.2px}
+.bench{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:34px 36px;display:grid;grid-template-columns:1fr 1fr;gap:38px}
+.bench h4{font-size:15.5px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.bench p{font-size:14.6px;color:#54646f;line-height:1.86}
+
+/* ---------- careers ---------- */
+.joblist{margin-top:52px;border-top:1px solid var(--line)}
+.job{border-bottom:1px solid var(--line)}
+.job summary{list-style:none;cursor:pointer;padding:26px 4px;display:flex;
+  align-items:center;justify-content:space-between;gap:20px}
+.job summary::-webkit-details-marker{display:none}
+.job .jt{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.job .jt h3{font-size:19px;font-weight:800;color:var(--navy)}
+.job .meta{font-size:13.4px;color:var(--muted)}
+.pill{font-size:11px;font-weight:800;letter-spacing:1.4px;padding:4px 11px;border-radius:999px;
+  background:var(--mint);color:var(--teal);flex:none}
+.pill.soon{background:#EEF2F7;color:#7A8BA3}
+.chev{flex:none;color:var(--muted);transition:transform .22s}
+.job[open] .chev{transform:rotate(180deg)}
+.jd{padding:2px 4px 34px;max-width:56em}
+.jd h4{font-size:14.6px;font-weight:800;color:var(--navy);margin:26px 0 10px;letter-spacing:.3px}
+.jd h4:first-child{margin-top:8px}
+.jd p{font-size:14.6px;color:#54646f;line-height:1.9}
+.jd ol,.jd ul{margin:6px 0 0 1.15em}
+.jd li{font-size:14.6px;color:#54646f;line-height:1.9;margin-bottom:5px}
+.jd .facts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px}
+.jd .facts span{font-size:12.8px;background:var(--grey);border:1px solid var(--line);
+  border-radius:8px;padding:6px 12px;color:#4a5a6b}
+.applybar{margin-top:44px;background:var(--navy);border-radius:10px;padding:38px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.applybar h3{color:#fff;font-size:20px;font-weight:800;margin-bottom:7px}
+.applybar p{color:#a9bdd4;font-size:14.6px;max-width:40em}
+
+/* ---------- footer ---------- */
+footer{background:var(--navy);color:#8fa4bd;padding:66px 0 40px;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:44px;padding-bottom:40px;
+  border-bottom:1px solid rgba(255,255,255,.11)}
+footer h5{color:#fff;font-size:12px;letter-spacing:2.6px;font-weight:800;margin-bottom:16px;
+  text-transform:uppercase}
+footer p{line-height:1.95;font-size:14px}
+footer a:hover{color:var(--acc)}
+.fbot{padding-top:26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-size:12.8px;color:#6f86a3}
+
+@media(max-width:900px){
+  section{padding:74px 0}
+  .hero{padding-top:74px}
+  .navlinks{display:none}
+  .navlinks.open{display:flex;position:absolute;top:66px;left:0;right:0;background:#fff;
+    flex-direction:column;align-items:flex-start;gap:0;padding:8px 28px 18px;
+    border-bottom:1px solid var(--line)}
+  .navlinks.open a{padding:12px 0;width:100%;border-bottom:1px solid var(--line)}
+  .burger{display:block}
+  .bench,.prods{grid-template-columns:1fr;gap:22px}
+  .chain{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid rgba(255,255,255,.13);padding:24px}
+  .step:last-child{border-bottom:0}
+  .fgrid{grid-template-columns:1fr;gap:30px}
+  .applybar,.invest{padding:30px 26px}
+  .invest-wrap{padding-bottom:70px}
+  .prod{padding:28px 24px 30px}
+  .capstrip{margin-top:56px}
+}
 </style>
 </head>
 <body>
-  <main>
-    <h1>智遇未来 · 内部分享</h1>
-    <p class="sub">深圳市智遇未来科技有限公司 · 团队技术博客与分享</p>
 
-    <p class="section-title">分享 / Slides</p>
-    <ul class="cards">
-      <li>
-        <a class="card" href="/slides/rust-async/">
-          <div class="t">Rust 异步运行时到底在调度什么？</div>
-          <div class="d">从 Future::poll 到 tokio 的 work-stealing · 8 页</div>
-        </a>
-      </li>
-    </ul>
-  </main>
+<!-- ============ NAV ============ -->
+<header>
+<div class="wrap nav">
+  <!-- 字标：logo 未定稿，暂用「Z 双色 + 加重」方案。换方案只改 .z 的 CSS -->
+  <a class="brand" href="#top" aria-label="Zphyture AI">
+    <b><span class="z">Z</span>phyture AI</b>
+    <span class="cn">智遇未来</span>
+  </a>
 
-  <footer>
-    <a href="https://beian.miit.gov.cn" target="_blank" rel="noreferrer">粤ICP备2026081552号</a>
-  </footer>
+  <nav class="navlinks" id="navlinks">
+    <a href="#product" data-en="Products">产品</a>
+    <a href="#how" data-en="How it works">怎么做的</a>
+    <a href="#team" data-en="Team">团队</a>
+    <a href="#careers" data-en="Careers">加入我们</a>
+    <button class="langbtn" id="lang" type="button">EN</button>
+  </nav>
+
+  <button class="burger" id="burger" type="button" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" style="padding-bottom:0">
+<div class="wrap">
+  <div class="eyebrow" data-en="Physical Foundation Models">物理大模型</div>
+  <h1 data-en="Intelligence that does<br><em>physical work.</em>">让智能<br><em>干体力活</em></h1>
+  <p class="lede" data-en="We build physical foundation models for the real world and deploy them onto real production lines. Our system has been validated in an operating factory in Shenzhen — the full chain, from data collection through to data flowing back into training, is connected end to end.">我们研发面向真实世界的物理大模型，并把它交付到真实的生产现场。相关系统已在深圳的真实工厂完成落地验证 —— 从数据采集到数据回流，整条链路完整打通。</p>
+  <div class="cta">
+    <a class="btn btn-p" href="#careers" data-en="We are hiring">我们在招人</a>
+    <a class="btn btn-g" href="mailto:contact@phyture.ai" data-en="Get in touch">联系我们</a>
+  </div>
+</div>
+
+<div class="capstrip">
+  <div class="wrap">
+    <div class="caps">
+      <span data-en="Physical foundation model training">物理大模型训练</span>
+      <span data-en="On-device inference">端侧推理</span>
+      <span data-en="Visual servoing">视觉伺服</span>
+      <span data-en="Robot system integration">机器人系统集成</span>
+      <span data-en="Industrial on-site delivery">工业现场交付</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section id="product">
+<div class="wrap">
+  <div class="kicker" data-en="Products">产品</div>
+  <h2 data-en="A model, and a machine that runs it.">一个模型，和一台跑这个模型的机器。</h2>
+
+  <div class="prods">
+    <div class="prod">
+      <div class="pn">01</div>
+      <h3 data-en="General physical foundation model">通用物理大模型</h3>
+      <p data-en="An end-to-end model that lets a robot complete a task by understanding it, rather than by following a pre-written program. Trained and evaluated on data from real production lines.">端到端的模型，让机器人靠理解完成任务，而不是靠预先写好的程序。在真实产线产生的数据上训练和评测。</p>
+      <ul>
+        <li data-en="A new material or an unfamiliar station does not require an engineer to re-program it">换一个没见过的物料、没做过的工位，不需要工程师重新编程</li>
+        <li data-en="End to end, not a pipeline of separate perception and planning stages">端到端，不是感知与规划分段拼起来的流水线</li>
+        <li data-en="Built to transfer across processes and across robot bodies">面向跨工序、跨本体迁移设计</li>
+      </ul>
+    </div>
+
+    <div class="prod">
+      <div class="pn">02</div>
+      <h3 data-en="Industrial loading and unloading robot">工业上下料机器人</h3>
+      <p data-en="A complete machine that carries the model onto the floor. Aimed at flexible loading and unloading in manufacturing — work that is repetitive but never identical, which is exactly where fixed automation stops.">承载模型落到现场的整机产品。面向制造业柔性上下料 —— 这类活儿重复，却从不完全相同，而固定自动化正是在这里停下。</p>
+      <ul>
+        <li data-en="Model, software and machine are all developed and built in-house">模型、软件与整机全部自研自产</li>
+        <li data-en="No line rebuild required — it works as a standard unit at the station">不改产线，作为标准单元接入工位</li>
+        <li data-en="Validated in an operating factory in Shenzhen">已在深圳的真实工厂完成落地验证</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section id="how" class="sec-dark">
+<div class="wrap">
+  <div class="kicker" data-en="How it works">怎么做的</div>
+  <h2 data-en="Five steps, connected end to end. Not stopping at simulation or a demo.">五个环节，完整打通。没有停在仿真和演示上。</h2>
+  <p class="sub" data-en="Most of the difficulty is not in any single step — it is in whether the steps connect. A model that trains well but cannot be deployed, or deploys but produces no usable data, breaks the chain. We built ours so that it closes.">难处大多不在某一个环节，而在环节之间接不接得上。训得好却部署不了，或者部署了却产不出可用的数据，链条就断了。我们把它做成一条能闭合的链。</p>
+
+  <div class="chain">
+    <div class="step">
+      <i>01</i>
+      <b data-en="Data collection">数据采集</b>
+      <span data-en="Teleoperated demonstration on real equipment, to a collection standard we keep revising.">在真实设备上做遥操作示教，按一套持续迭代的采集规范执行。</span>
+    </div>
+    <div class="step">
+      <i>02</i>
+      <b data-en="Model training">模型训练</b>
+      <span data-en="End-to-end physical foundation models, plus offline and online evaluation protocols.">端到端的物理大模型，配套离线与在线评测方案。</span>
+    </div>
+    <div class="step">
+      <i>03</i>
+      <b data-en="Deployment">真机部署</b>
+      <span data-en="On-device inference, robot control and the whole-machine software stack.">端侧推理、机器人控制与整机软件栈。</span>
+    </div>
+    <div class="step">
+      <i>04</i>
+      <b data-en="On-site tuning">现场调优</b>
+      <span data-en="Iterated on the factory floor against quantitative metrics, not in a lab.">在车间里、按量化指标迭代，而不是在实验室里。</span>
+    </div>
+    <div class="step">
+      <i>05</i>
+      <b data-en="Data return">数据回流</b>
+      <span data-en="What the machine sees on the line goes back into the next round of training.">机器在产线上看到的东西，回到下一轮训练里。</span>
+    </div>
+  </div>
+
+  <div class="loop">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+    <span data-en="Step five feeds back into step one. Every day the model runs on a real line, the next version is a little better. From flexible loading and unloading, upward to force control and fine assembly, and to generalisation across processes.">第五步接回第一步。模型每在真实产线上跑一天，下一版就更好一点。从柔性上下料往上，是力控与精细装配，是跨工序泛化。</span>
+  </div>
+</div>
+</section>
+
+<!-- ============ TEAM ============ -->
+<section id="team" class="sec-grey">
+<div class="wrap">
+  <div class="kicker" data-en="Team">团队</div>
+  <h2 data-en="A team out of Tsinghua University and Renmin University of China.">一支来自清华大学与中国人民大学的团队。</h2>
+  <p class="sub" data-en="One team, not two. The people who train the model are the people who go into the workshop. Problems come off the production line, and answers have to go back to the production line to be proven.">一支团队，不是两支。训模型的人，就是进车间的人。问题从产线上来，答案要回到产线上验证。</p>
+
+  <div class="unis">
+    <div class="uni"><b data-en="Tsinghua University">清华大学</b></div>
+    <div class="uni"><b data-en="Renmin University of China">中国人民大学</b></div>
+    <div class="uni"><b data-en="Shenzhen &amp; Beijing">深圳 · 北京</b></div>
+  </div>
+
+  <div class="bench">
+    <div>
+      <h4 data-en="What we cover">能力覆盖</h4>
+      <p data-en="Physical foundation model training, on-device inference, visual servoing, robot system integration and industrial on-site delivery. Masters, PhDs and experienced robotics engineers who came out of the same research group and have worked together for years.">物理大模型训练、端侧推理、视觉伺服、机器人系统集成与工业现场交付。硕博与资深机器人研发人员，出自同一个课题组，已共事多年。</p>
+    </div>
+    <div>
+      <h4 data-en="How we work">工作方式</h4>
+      <p data-en="We do not separate research from delivery. The same people who publish and train are the ones who commission a machine on the floor — which is why the problems we work on come off a production line rather than out of a literature review.">我们不把研究和交付分开。写代码训模型的人，也是在车间里调机器的人 —— 所以我们研究的问题来自产线，而不是来自文献综述。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ CAREERS ============ -->
+<section id="careers">
+<div class="wrap">
+  <div class="kicker" data-en="Careers">加入我们</div>
+  <h2 data-en="Real robots, real industrial data, a real production line.">真实的机器人、真实的工业数据、真实的产线。</h2>
+  <p class="sub" data-en="If you would rather have your model judged by whether it works on a factory floor than by a number in a table, this is the right place. We are hiring in Shenzhen and Beijing.">如果你希望自己的模型被"能不能在车间里跑通"来评判，而不只是被表格里的一个数字评判，这里是对的地方。我们在深圳与北京两地招人。</p>
+
+  <div class="joblist">
+
+    <details class="job" open>
+      <summary>
+        <div class="jt">
+          <span class="pill" data-en="OPEN">在招</span>
+          <h3 data-en="Embodied AI Algorithm Intern">具身智能算法实习生</h3>
+          <span class="meta" data-en="Shenzhen &nbsp;·&nbsp; 4+ days / week &nbsp;·&nbsp; 2 months min &nbsp;·&nbsp; &#165;150–300 / day">深圳 &nbsp;·&nbsp; 每周 4 天以上 &nbsp;·&nbsp; 连续 2 个月以上 &nbsp;·&nbsp; 150–300 元 / 天</span>
+        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="jd">
+        <div class="facts">
+          <span data-en="Location: Shenzhen University Town, Nanshan">工作地点：深圳南山区深圳大学城</span>
+          <span data-en="Education: Bachelor&#39;s or above">学历要求：本科及以上</span>
+          <span data-en="On-site only, no remote">不支持远程</span>
+        </div>
+
+        <h4 data-en="About us">一、关于我们</h4>
+        <p data-en="We are a technology company focused on bringing embodied intelligence into production. Our core research and engineering team is made up of Tsinghua masters and PhDs together with experienced robotics engineers, covering physical foundation model training, on-device inference, visual servoing, robot system integration and industrial on-site delivery.">我们是一家专注于具身智能产业落地的科技公司。核心研发与工程班底由清华硕博及资深机器人研发人员组成，技术能力覆盖物理大模型训练、端侧推理、视觉伺服、机器人系统集成与工业现场交付。</p>
+        <p style="margin-top:12px" data-en="The team has not stopped at simulation or demos. We have connected the full technical chain — data collection, model training, deployment on physical machines, on-site tuning and data return — and the system has been validated in an operating factory in Shenzhen. We are currently pushing into flexible loading and unloading in manufacturing. You will work with real robot platforms and real industrial data, solving actual problems on the floor alongside the core engineering team.">团队并非停留在仿真或演示阶段。目前我们已经打通数据采集、模型训练、真机部署、现场调优与数据回流的完整技术链路，相关系统已在深圳真实工厂完成落地验证，正在持续推进制造业柔性上下料等场景。你将直接使用真实机器人平台和真实工业数据，与核心工程团队共同解决生产现场中的实际问题。</p>
+
+        <h4 data-en="What you will do">二、岗位职责</h4>
+        <p data-en="Depending on your strengths, you will focus on one or two of the following, with exposure to the full research and development chain:">根据个人技术优势，重点参与以下一至两个方向，并有机会接触完整研发链路：</p>
+        <ol>
+          <li data-en="Take part in teleoperation demonstration data collection; help define and iterate collection standards; carry out data quality screening, analysis and management.">参与遥操作示教数据采集，协助制定和迭代采集规范，完成数据质量筛查、分析与管理；</li>
+          <li data-en="Train and fine-tune embodied models such as VLA and WAM; design and run offline and online evaluation protocols.">参与 VLA、WAM 等具身模型的训练与微调，设计并执行离线、在线评测方案；</li>
+          <li data-en="Train, optimise and deploy vision models for detection, classification and pose estimation.">负责目标检测、分类、位姿估计等视觉模型的训练、优化与部署；</li>
+          <li data-en="Integrate and closed-loop debug algorithms on real robot platforms; validate the end-to-end pipeline.">参与算法模型在真实机器人平台上的集成和闭环调试，完成端到端流程验证；</li>
+          <li data-en="Debug and maintain robot arms and supporting hardware: motor parameter configuration and calibration, motion control tuning, position feedback and communication link troubleshooting, hardware fault localisation.">参与机械臂及配套硬件的调试与维护，包括电机参数配置与标定、运动控制调试、位置反馈和通信链路排查，以及硬件异常定位。</li>
+        </ol>
+
+        <h4 data-en="Requirements">三、任职要求</h4>
+        <ol>
+          <li data-en="Bachelor&#39;s degree or above in computer science, automation, robotics, artificial intelligence, electronic information or a related field.">本科及以上学历，计算机、自动化、机器人、人工智能、电子信息等相关专业；</li>
+          <li data-en="Strong Python; able to use PyTorch for data processing, model training, evaluation and debugging.">熟练掌握 Python，能够使用 PyTorch 完成数据处理、模型训练、评测及调试；</li>
+          <li data-en="Project experience in at least one of VLA, WAM or computer vision.">具备 VLA、WAM、计算机视觉等至少一个方向的项目经验；</li>
+          <li data-en="Basic hands-on hardware ability; familiar with the fundamentals of robot arm motion control and motor drives.">具备基本的硬件动手能力，了解机械臂运动控制和电机驱动的基本原理；</li>
+          <li data-en="Sound engineering practice and problem-localisation ability; able to run experiments and iterate against quantitative metrics.">具备良好的工程实践和问题定位能力，能够基于量化指标开展实验与迭代；</li>
+          <li data-en="Able to intern on site in Shenzhen, at least 4 days a week for at least 2 consecutive months.">能够在深圳现场实习，每周到岗不少于 4 天，连续实习不少于 2 个月。</li>
+        </ol>
+
+        <h4 data-en="Nice to have">四、优先考虑</h4>
+        <ol>
+          <li data-en="Hands-on experience with real robot platforms — coursework, competitions or lab projects all count.">操作过真实机器人平台，包括课程项目、学科竞赛或实验室项目；</li>
+          <li data-en="Familiar with LeRobot or ROS, or has reproduced open work such as ACT, Diffusion Policy, OpenVLA or &#960;&#8320;.">熟悉 LeRobot、ROS 等框架，或复现过 ACT、Diffusion Policy、OpenVLA、&#960;&#8320; 等开源工作；</li>
+          <li data-en="Experience debugging servo/stepper motors, motion control cards, Modbus, CAN, EtherCAT, or open robot arms such as SO101 and ReBot.">具备伺服／步进电机、运动控制卡、Modbus、CAN、EtherCAT 或 SO101、ReBot 等开源机械臂调试经验；</li>
+          <li data-en="Has built data collection scripts, annotation tools or data visualisation tools.">开发过数据采集脚本、标注工具或数据可视化工具；</li>
+          <li data-en="Has taken an algorithm prototype through to stable operation or actual delivery.">有将算法原型推进至稳定运行或实际交付状态的经历。</li>
+        </ol>
+
+        <h4 data-en="What you get">五、你将获得</h4>
+        <ol>
+          <li data-en="Work shoulder to shoulder with a core R&amp;D team of Tsinghua masters and PhDs, and take part directly in discussing and solving key technical problems.">与清华硕博背景的核心研发团队并肩协作，直接参与关键技术问题的讨论与解决；</li>
+          <li data-en="Real industrial data and real robot platforms — not only simulation or demo projects.">使用真实工业数据和真实机器人平台，而非只完成仿真或演示项目；</li>
+          <li data-en="Full participation across data collection, model training, physical deployment and on-site tuning, building end-to-end embodied intelligence experience.">完整参与数据采集、模型训练、真机部署和现场调优，建立具身智能全链路经验；</li>
+          <li data-en="A flat R&amp;D environment where you can join core technical discussions and own work that actually matters.">扁平化研发环境，可直接参与核心技术方案讨论并承担有实际影响的工作；</li>
+          <li data-en="Support for academic output based on your internship work. Submissions are subject to the company&#39;s confidentiality and IP review, and authorship follows actual technical contribution.">支持基于实习成果开展学术产出；具体投稿须经公司保密与知识产权审核，署名按照实际技术贡献确定；</li>
+          <li data-en="A formal internship certificate.">提供正式实习证明；</li>
+          <li data-en="Competitive internship pay based on ability and contribution. Strong performers are prioritised for conversion to full time, and after conversion may join the company equity incentive plan under its standard terms.">根据能力和实际贡献提供有竞争力的实习薪酬，表现优异者优先进入转正通道；转正后可按公司统一标准参与股权激励计划。</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="job">
+      <summary>
+        <div class="jt">
+          <span class="pill soon" data-en="OPENING SOON">即将开放</span>
+          <h3 data-en="Embodied AI Algorithm Engineer">具身智能算法工程师</h3>
+          <span class="meta" data-en="Shenzhen / Beijing &nbsp;·&nbsp; Full time">深圳 / 北京 &nbsp;·&nbsp; 全职</span>
+        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="jd">
+        <p data-en="Own pre-training and post-training of the physical foundation model: data pipeline, training framework, distributed parallelism, evaluation protocol and capability iteration. The model you own has to work on a real line, not only on a benchmark.">负责物理大模型的预训练与后训练：数据链路、训练框架、分布式并行、评测方案与能力迭代。你负责的模型必须在真实产线上跑通，而不只是在基准上好看。</p>
+        <h4 data-en="We are looking for">我们在找</h4>
+        <ul>
+          <li data-en="Master&#39;s or PhD in a related field, with solid experience training large models or VLA / robot-learning models.">硕士及以上相关专业，具备扎实的大模型或 VLA / 机器人学习模型训练经验；</li>
+          <li data-en="Deep familiarity with PyTorch and distributed training; able to locate and fix problems inside the training stack itself.">深度熟悉 PyTorch 与分布式训练，能够定位并修复训练栈内部的问题；</li>
+          <li data-en="Publications at top venues, or open-source work that other people actually use — either is a strong signal.">有顶会论文，或有被别人真正使用的开源工作 —— 两者都是很强的信号。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="job">
+      <summary>
+        <div class="jt">
+          <span class="pill soon" data-en="OPENING SOON">即将开放</span>
+          <h3 data-en="Robot Systems Engineer">机器人系统工程师</h3>
+          <span class="meta" data-en="Shenzhen &nbsp;·&nbsp; Full time">深圳 &nbsp;·&nbsp; 全职</span>
+        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="jd">
+        <p data-en="Connect the model to the machine: inference deployment, robot control, visual servoing, the whole-machine software stack, on-site commissioning and remote operation. This is the role that decides whether an algorithm becomes a product.">把模型接到机器上：推理部署、机器人控制、视觉伺服、整机软件栈、现场调试与远程运维。这个岗位决定一个算法能否成为产品。</p>
+        <h4 data-en="We are looking for">我们在找</h4>
+        <ul>
+          <li data-en="Strong C++/Python, familiar with ROS and real-time control; comfortable debugging on real hardware rather than in simulation.">扎实的 C++/Python，熟悉 ROS 与实时控制；习惯在真实硬件上调试，而不是在仿真里；</li>
+          <li data-en="Experience taking a robot system from prototype to something that runs unattended through a full shift.">有把机器人系统从样机推进到"能整班无人值守运行"的经历；</li>
+          <li data-en="Willing to spend time on a factory floor. Most of the hard problems only show up there.">愿意待在车间。大部分难题只在那里出现。</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="job">
+      <summary>
+        <div class="jt">
+          <span class="pill soon" data-en="OPENING SOON">即将开放</span>
+          <h3 data-en="Hardware / Mechatronics Engineer">硬件 / 机电工程师</h3>
+          <span class="meta" data-en="Shenzhen &nbsp;·&nbsp; Full time">深圳 &nbsp;·&nbsp; 全职</span>
+        </div>
+        <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="jd">
+        <p data-en="Own the machine itself: mechanical structure, gripper and end-effector design, electrical control, whole-machine integration, and the iterations that take it from prototype to a form that can actually be manufactured at cost.">负责整机本身：机械结构、夹爪与末端设计、电气控制方案、整机集成，以及把样机推进到"可量产、成本可控"形态的多轮迭代。</p>
+        <h4 data-en="We are looking for">我们在找</h4>
+        <ul>
+          <li data-en="Mechanical, mechatronics or automation background, with experience shipping a physical product — not only drawings.">机械、机电或自动化背景，有把实体产品做出来的经历，而不只是画图；</li>
+          <li data-en="Real cost sense. On this product, cost is a technical constraint, not a procurement afterthought.">真实的成本意识。在这个产品上，成本是技术约束，不是采购环节的事后问题；</li>
+          <li data-en="Fluent with the Shenzhen supply chain, and willing to iterate quickly against it.">熟悉深圳供应链，并愿意围绕它快速迭代。</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="applybar">
+    <div>
+      <h3 data-en="Send us your CV">投递简历</h3>
+      <p data-en="Email your CV to hr@phyture.ai. If you have a GitHub, a paper, or anything you built yourself that actually runs — send that too. It tells us more than a CV does.">简历发到 hr@phyture.ai。如果你有 GitHub、论文，或者任何一个你亲手做出来并且真的能跑的东西，请一并发来 —— 它比简历说明的更多。</p>
+    </div>
+    <a class="btn btn-p" href="mailto:hr@phyture.ai">hr@phyture.ai</a>
+  </div>
+</div>
+</section>
+
+<!-- ============ INVESTORS ============ -->
+<section class="invest-wrap">
+<div class="wrap">
+  <div class="invest">
+    <div>
+      <div class="kicker" data-en="Investors">投资人</div>
+      <h3 data-en="Come and see the machine.">欢迎来现场看真机。</h3>
+      <p data-en="We are raising a new round. Rather than send over a deck, we would rather you saw the thing itself — a live demo on a real machine, the production line, and the engineers who built it. Email us to arrange a time.">我们正在进行新一轮融资。比起发一份材料过来，我们更愿意让你直接看到东西 —— 真机演示、产线现场，以及做出它的工程师。约时间发邮件即可。</p>
+    </div>
+    <a class="btn btn-o" href="mailto:contact@phyture.ai">contact@phyture.ai</a>
+  </div>
+</div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+<div class="wrap">
+  <div class="fgrid">
+    <div>
+      <p style="color:#fff;font-weight:800;letter-spacing:1.6px;font-size:18px;margin-bottom:10px">
+        <span class="z">Z</span>phyture AI</p>
+      <p data-en="Shenzhen Phyture AI Technology Co., Ltd.">深圳市智遇未来科技有限公司</p>
+      <p style="margin-top:14px;max-width:26em" data-en="Physical foundation models for the real world.">面向真实世界的物理大模型。</p>
+    </div>
+    <div>
+      <h5 data-en="Contact">联系</h5>
+      <p><a href="mailto:contact@phyture.ai">contact@phyture.ai</a><br><span data-en="General &amp; partnerships">合作与咨询</span></p>
+      <p style="margin-top:12px"><a href="mailto:hr@phyture.ai">hr@phyture.ai</a><br><span data-en="Recruiting">简历投递</span></p>
+    </div>
+    <div>
+      <h5 data-en="Offices">地点</h5>
+      <p data-en="Shenzhen &nbsp;·&nbsp; Shenzhen University Town, Nanshan District">深圳 &nbsp;·&nbsp; 南山区深圳大学城</p>
+      <p style="margin-top:10px" data-en="Beijing &nbsp;·&nbsp; Wudaokou, Haidian District">北京 &nbsp;·&nbsp; 海淀区五道口</p>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 <span data-en="Shenzhen Phyture AI Technology Co., Ltd.">深圳市智遇未来科技有限公司</span></span>
+    <span>phyture.ai</span>
+  </div>
+</div>
+</footer>
+
+<script>
+(function(){
+  var en = false;
+  var btn = document.getElementById('lang');
+  var nodes = document.querySelectorAll('[data-en]');
+
+  nodes.forEach(function(n){ n.setAttribute('data-zh', n.innerHTML); });
+
+  function apply(){
+    nodes.forEach(function(n){
+      n.innerHTML = en ? n.getAttribute('data-en') : n.getAttribute('data-zh');
+    });
+    document.documentElement.lang = en ? 'en' : 'zh-CN';
+    btn.textContent = en ? '中文' : 'EN';
+    document.title = en
+      ? 'Zphyture AI — Intelligence that does physical work'
+      : 'Zphyture AI 智遇未来 · 让智能干体力活';
+  }
+  btn.addEventListener('click', function(){ en = !en; apply(); });
+
+  var burger = document.getElementById('burger');
+  var links  = document.getElementById('navlinks');
+  burger.addEventListener('click', function(){ links.classList.toggle('open'); });
+  links.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') links.classList.remove('open');
+  });
+})();
+</script>
+
 </body>
 </html>
