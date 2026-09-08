@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>具身智能算法工程师 · 加入智遇未来</title>
+<meta name="description" content="负责物理大模型的预训练与后训练：数据链路、训练框架、分布式并行、评测方案与能力迭代。 深圳 / 北京 · 全职">
+<meta property="og:title" content="具身智能算法工程师 · 加入智遇未来">
+<meta property="og:description" content="负责物理大模型的预训练与后训练：数据链路、训练框架、分布式并行、评测方案与能力迭代。 深圳 / 北京 · 全职">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://phyture.ai/careers/embodied-ai-algorithm-engineer/">
+<meta property="og:image" content="https://phyture.ai/careers/poster/embodied-ai-algorithm-engineer.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1E36'/%3E%3Ctext x='50' y='52' font-family='Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='%2300C2A8' text-anchor='middle' dominant-baseline='central'%3EZ%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --navy:#0F1E36; --ink:#0B1526; --teal:#008C7A; --acc:#00C2A8;
+  --body:#2A3542; --muted:#6F7F94; --line:#E6ECF2; --grey:#F6F8FA; --mint:#E9F7F4; --paper:#FFFFFF;
+  --wrap:1160px;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--body);background:var(--paper);line-height:1.8;font-size:16px;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-variant-numeric:tabular-nums}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
+::selection{background:rgba(0,194,168,.25)}
+
+/* 字标：Z 处理集中在这里，换方案只改这一块 */
+.z{color:var(--acc);font-weight:900;font-size:1.42em;line-height:0;margin-right:-1px}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;flex-direction:column;line-height:1.2}
+.brand b{font-size:16px;font-weight:800;letter-spacing:1.6px;color:var(--navy);line-height:1.25}
+.brand .cn{font-size:11px;letter-spacing:4px;color:var(--muted)}
+.navlinks{display:flex;align-items:center;gap:34px}
+.navlinks a{font-size:14px;color:#3d4b5c;position:relative;padding:4px 0;letter-spacing:.2px;transition:color .18s}
+.navlinks a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--teal);transition:right .25s cubic-bezier(.2,.7,.2,1)}
+.navlinks a:hover{color:var(--teal)}
+.navlinks a:hover::after{right:0}
+.navlinks a.cur{color:var(--navy);font-weight:700}
+.langbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 14px;font-size:12.5px;font-weight:700;
+  letter-spacing:.6px;color:var(--navy);cursor:pointer;font-family:inherit;transition:.18s}
+.langbtn:hover{border-color:var(--acc);color:var(--teal)}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:6px;color:var(--navy)}
+
+/* ---------- 通用排版 ---------- */
+.kicker{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.32em;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:22px}
+.kicker::before{content:"";width:22px;height:1px;background:var(--teal)}
+.sec-dark .kicker{color:var(--acc)} .sec-dark .kicker::before{background:var(--acc)}
+h2{font-size:clamp(28px,3.4vw,42px);line-height:1.22;font-weight:700;color:var(--navy);letter-spacing:-.015em}
+.sec-dark h2{color:#fff}
+.sub{font-size:16.5px;color:#4a5a6b;line-height:1.9;max-width:36em}
+.sec-dark .sub{color:#b7c6d9}
+section{padding:128px 0}
+.sec-grey{background:var(--grey)}
+.sec-dark{background:var(--navy);color:#fff}
+.shead{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px 72px;align-items:end}
+.shead .sub{padding-bottom:6px}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:13px 26px;font-size:14.5px;font-weight:600;
+  transition:.2s;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn svg{transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn-p{background:var(--acc);color:#03231e}
+.btn-p:hover{background:#25d8bf}
+.btn-g{border-color:rgba(255,255,255,.28);color:#fff}
+.btn-g:hover{border-color:var(--acc);color:var(--acc)}
+.btn-o{border-color:var(--navy);color:var(--navy)}
+.btn-o:hover{background:var(--navy);color:#fff}
+.btn-w{border-color:rgba(15,30,54,.16);color:var(--navy);background:#fff}
+.btn-w:hover{border-color:var(--navy)}
+
+/* ---------- 显现 ---------- */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.orbit,.comet{animation:none!important}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:var(--navy);color:#fff;padding:120px 0 0}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(1100px 600px at 8% -10%, rgba(0,194,168,.12), transparent 62%),
+  radial-gradient(700px 500px at 100% 100%, rgba(0,194,168,.06), transparent 60%)}
+.hero .wrap{position:relative;z-index:2}
+.hgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:center}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.34em;color:var(--acc);font-weight:700;text-transform:uppercase;margin-bottom:30px}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--acc)}
+.hero h1{font-size:clamp(42px,6.4vw,80px);line-height:1.08;font-weight:700;letter-spacing:-.02em;margin-bottom:30px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p.lede{font-size:clamp(16px,1.8vw,19px);color:#b7c6d9;max-width:34em;line-height:1.9}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:40px 0 0}
+.ring{position:relative;width:100%;max-width:440px;margin:0 0 0 auto;aspect-ratio:1}
+.ring svg{width:100%;height:100%;overflow:visible}
+.orbit{transform-origin:220px 220px;animation:spin 48s linear infinite}
+.comet{transform-origin:220px 220px;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring text{font-family:var(--sans);fill:#c9d6e6;font-size:12.5px;letter-spacing:.06em}
+.ring .num{fill:var(--acc);font-size:10px;font-weight:800;letter-spacing:.18em}
+.ring .core{fill:#fff;font-size:13px;letter-spacing:.2em;font-weight:700}
+.capstrip{position:relative;z-index:2;margin-top:88px;border-top:1px solid rgba(255,255,255,.12);padding:24px 0 28px}
+.caps{display:flex;flex-wrap:wrap;gap:10px 0;align-items:center}
+.caps span{font-size:13.2px;color:#9fb3cb;letter-spacing:.3px;display:flex;align-items:center;padding-right:28px;margin-right:28px;border-right:1px solid rgba(255,255,255,.14)}
+.caps span:last-child{border-right:0;margin-right:0;padding-right:0}
+
+/* ---------- products ---------- */
+.prods{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:64px}
+.prod{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;padding:40px 36px 38px;overflow:hidden;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s}
+.prod:hover{transform:translateY(-3px);box-shadow:0 18px 48px rgba(15,30,54,.08);border-color:#d5e0ec}
+.prod .pn{position:absolute;right:26px;top:14px;font-size:76px;font-weight:200;color:var(--navy);opacity:.07;letter-spacing:-.04em;line-height:1}
+.prod .tag{font-size:11px;letter-spacing:.28em;font-weight:800;color:var(--teal);text-transform:uppercase}
+.prod h3{font-size:23px;font-weight:700;color:var(--navy);margin:14px 0 14px;line-height:1.35;letter-spacing:-.01em}
+.prod p{font-size:15px;color:#54646f;line-height:1.9}
+.prod ul{list-style:none;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.prod li{font-size:14.4px;color:#54646f;line-height:1.75;padding-left:20px;position:relative;margin-bottom:11px}
+.prod li:last-child{margin-bottom:0}
+.prod li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--acc)}
+
+/* ---------- how ---------- */
+.chain{display:grid;grid-template-columns:repeat(5,1fr);margin-top:72px;border-top:1px solid rgba(255,255,255,.14)}
+.step{padding:34px 26px 34px 0;margin-right:26px;position:relative}
+.step::before{content:"";position:absolute;left:0;top:-1px;width:36px;height:1px;background:var(--acc)}
+.step i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.24em;color:var(--acc)}
+.step b{display:block;font-size:17.5px;font-weight:700;color:#fff;margin:14px 0 10px}
+.step span{font-size:13.6px;color:#9fb3cb;line-height:1.8;display:block}
+.loop{margin-top:28px;display:flex;align-items:flex-start;gap:14px;font-size:14.6px;color:#c3d0e0;max-width:62em;line-height:1.85}
+.loop svg{flex:none;color:var(--acc);margin-top:5px}
+
+/* ---------- team ---------- */
+.unis{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.uni{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:700;color:var(--navy)}
+.tl{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:44px;align-items:start}
+.tlc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:40px 36px 34px;position:relative;overflow:hidden}
+.tlc .big{font-size:72px;font-weight:200;color:var(--navy);opacity:.06;position:absolute;right:26px;top:8px;letter-spacing:.02em;line-height:1}
+.tlc .k{font-size:11px;letter-spacing:.32em;font-weight:800;color:var(--teal);text-transform:uppercase}
+.tlc h3{font-size:22px;font-weight:700;color:var(--navy);margin:12px 0 22px;letter-spacing:-.01em}
+.tlc ol{list-style:none;counter-reset:n}
+.tlc li{counter-increment:n;position:relative;padding:15px 0 15px 44px;border-top:1px solid var(--line);font-size:14.6px;color:#4a5a6b;line-height:1.85}
+.tlc li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:17px;font-size:11.5px;font-weight:800;letter-spacing:.14em;color:var(--acc)}
+.bench{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.bench h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px;letter-spacing:.02em}
+.bench p{font-size:14.6px;color:#54646f;line-height:1.86}
+
+/* ---------- careers（首页列表与岗位页共用） ---------- */
+.jobs{margin-top:60px;border-top:1px solid var(--line)}
+.jrow{display:grid;grid-template-columns:minmax(0,1fr) auto 24px;gap:24px;align-items:center;padding:26px 8px;border-bottom:1px solid var(--line);transition:background .2s,padding .2s}
+.jrow:hover{background:var(--grey);padding-left:16px}
+.jrow .t{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.jrow h3{font-size:19px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.jrow .s{display:block;font-size:14px;color:#54646f;margin-top:6px;line-height:1.7;max-width:56em}
+.jrow .m{font-size:13.2px;color:var(--muted);white-space:nowrap}
+.jrow .arr{color:var(--muted);transition:transform .2s,color .2s}
+.jrow:hover .arr{transform:translateX(4px);color:var(--teal)}
+.pill{font-size:10.5px;font-weight:800;letter-spacing:.14em;padding:4px 10px;border-radius:999px;background:var(--mint);color:var(--teal);flex:none;text-transform:uppercase}
+.pill.ft{background:#EEF3FA;color:#2F5597}
+.more{margin-top:34px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.applybar{margin-top:56px;background:var(--navy);border-radius:16px;padding:40px 44px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.applybar h3{color:#fff;font-size:20px;font-weight:700;margin-bottom:8px}
+.applybar p{color:#a9bdd4;font-size:14.6px;max-width:40em;line-height:1.85}
+
+/* ---------- 投资人 ---------- */
+.invest-wrap{padding:0 0 110px}
+.invest{border:1px solid var(--line);border-radius:16px;background:var(--grey);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.invest .kicker{margin-bottom:10px}
+.invest h3{font-size:21px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.invest p{font-size:14.8px;color:#54646f;line-height:1.86;max-width:46em}
+
+/* ---------- footer ---------- */
+footer{background:var(--navy);color:#8fa4bd;padding:70px 0 40px;font-size:14px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:44px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.11)}
+footer h5{color:#fff;font-size:11px;letter-spacing:.3em;font-weight:800;margin-bottom:16px;text-transform:uppercase}
+footer p{line-height:1.95;font-size:14px}
+footer a:hover{color:var(--acc)}
+footer ul{list-style:none}
+footer li{line-height:2}
+.fbot{padding-top:26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12.8px;color:#6f86a3}
+
+/* ---------- 子页面（招聘列表 / 岗位） ---------- */
+.subhero{background:var(--navy);color:#fff;padding:76px 0 60px;position:relative;overflow:hidden}
+.subhero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 500px at 10% -20%, rgba(0,194,168,.12), transparent 62%)}
+.subhero .wrap{position:relative;z-index:2}
+.crumb{font-size:12.5px;color:#9fb3cb;letter-spacing:.06em;margin-bottom:22px;display:flex;gap:10px;align-items:center}
+.crumb a:hover{color:var(--acc)}
+.subhero h1{font-size:clamp(30px,4.4vw,52px);font-weight:700;line-height:1.18;letter-spacing:-.018em;max-width:18em}
+.subhero .meta{margin-top:18px;font-size:15px;color:#b7c6d9}
+.subhero .lede{margin-top:18px;font-size:16.5px;color:#b7c6d9;max-width:40em;line-height:1.9}
+.jobgrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:64px;padding:72px 0 96px;align-items:start}
+.jd{max-width:62em}
+.jd .facts{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.jd .facts span{font-size:12.8px;background:var(--grey);border:1px solid var(--line);border-radius:8px;padding:6px 12px;color:#4a5a6b}
+.jd h4{font-size:15px;font-weight:700;color:var(--navy);margin:34px 0 12px;letter-spacing:.02em;display:flex;align-items:center;gap:12px}
+.jd h4::before{content:"";width:16px;height:1px;background:var(--acc)}
+.jd p{font-size:15px;color:#4a5a6b;line-height:1.9;margin-bottom:10px}
+.jd ol,.jd ul{margin:6px 0 0 1.2em}
+.jd li{font-size:15px;color:#4a5a6b;line-height:1.9;margin-bottom:6px;padding-left:2px}
+.jd li b{color:var(--navy);font-weight:700}
+.aside{position:sticky;top:92px;display:flex;flex-direction:column;gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 26px 24px}
+.card h5{font-size:11px;letter-spacing:.3em;font-weight:800;color:var(--teal);text-transform:uppercase;margin-bottom:12px}
+.card p{font-size:14px;color:#54646f;line-height:1.8}
+.card .btn{margin-top:16px;width:100%;justify-content:center}
+.qr{display:flex;flex-direction:column;align-items:center;text-align:center}
+.qr svg{width:168px;height:168px;margin:6px 0 14px;shape-rendering:crispEdges}
+.qr small{font-size:12px;color:var(--muted);line-height:1.7;word-break:break-all}
+.card ul{list-style:none}
+.card li{border-top:1px solid var(--line);padding:11px 0;font-size:14px;line-height:1.6}
+.card li:first-child{border-top:0;padding-top:0}
+.card li a{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--navy)}
+.card li a:hover{color:var(--teal)}
+.card li .m{font-size:12px;color:var(--muted)}
+.list-intro{padding:72px 0 0}
+
+@media(max-width:900px){
+  section{padding:80px 0}
+  .wrap{padding:0 22px}
+  .hero{padding-top:72px}
+  .hgrid{grid-template-columns:1fr;gap:28px}
+  .ring{max-width:300px;margin:6px auto 0}
+  .navlinks{display:none}
+  .navlinks.open{display:flex;position:absolute;top:68px;left:0;right:0;background:#fff;flex-direction:column;align-items:flex-start;gap:0;padding:8px 22px 18px;border-bottom:1px solid var(--line)}
+  .navlinks.open a{padding:12px 0;width:100%;border-bottom:1px solid var(--line)}
+  .navlinks.open a::after{display:none}
+  .burger{display:block}
+  .shead{grid-template-columns:1fr;gap:18px}
+  .bench,.prods,.tl{grid-template-columns:1fr;gap:18px}
+  .chain{grid-template-columns:1fr;border-top:0}
+  .step{border-top:1px solid rgba(255,255,255,.14);margin-right:0;padding:24px 0}
+  .caps span{padding-right:16px;margin-right:16px}
+  .fgrid{grid-template-columns:1fr 1fr;gap:28px}
+  .applybar,.invest{padding:30px 26px}
+  .invest-wrap{padding-bottom:70px}
+  .prod,.tlc{padding:28px 24px 28px}
+  .capstrip{margin-top:56px}
+  .jrow{grid-template-columns:minmax(0,1fr) 20px;gap:12px}
+  .jrow .m{white-space:normal;grid-column:1/2}
+  .jobgrid{grid-template-columns:1fr;gap:36px;padding:48px 0 72px}
+  .aside{position:static}
+  .subhero{padding:56px 0 44px}
+}
+</style>
+</head>
+<body data-title-zh="具身智能算法工程师 · 加入智遇未来" data-title-en="Embodied AI Algorithm Engineer — Zphyture AI">
+<header>
+<div class="wrap nav">
+  <a class="brand" href="../../index.html" aria-label="Zphyture AI"><b><span class="z">Z</span>phyture AI</b><span class="cn">智遇未来</span></a>
+  <nav class="navlinks" id="navlinks">
+    <a href="../../index.html#product" data-en="Products">产品</a>
+    <a href="../../index.html#how" data-en="How it works">怎么做的</a>
+    <a href="../../index.html#team" data-en="Team">团队</a>
+    <a href="../../careers/index.html" class="cur" data-en="Careers">加入我们</a>
+    <button class="langbtn" id="lang" type="button">EN</button>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+</div>
+</header>
+
+<section class="subhero">
+<div class="wrap">
+  <div class="crumb"><a href="../../index.html" data-en="Home">首页</a><span>/</span><a href="../index.html" data-en="Careers">加入我们</a><span>/</span><span data-en="Embodied AI Algorithm Engineer">具身智能算法工程师</span></div>
+  <span class="pill ft" data-en="FULL TIME">全职</span>
+  <h1 style="margin-top:16px" data-en="Embodied AI Algorithm Engineer">具身智能算法工程师</h1>
+  <p class="meta" data-en="Shenzhen / Beijing · Full time">深圳 / 北京 · 全职</p>
+</div>
+</section>
+<div class="wrap">
+<div class="jobgrid">
+  <div class="jd"><div class="facts"><span data-en="Location: Shenzhen University Town or Wudaokou, Beijing">工作地点：深圳大学城 或 北京五道口</span><span data-en="Education: Master&#x27;s or above">学历要求：硕士及以上</span><span data-en="Full time · Open">全职 · 在招</span></div><h4 data-en="About us">一、关于我们</h4><p data-en="We are a technology company focused on bringing embodied intelligence into production. Our core research and engineering team is made up of Tsinghua and Renmin masters and PhDs together with experienced robotics engineers, covering physical foundation model training, on-device inference, visual servoing, robot system integration and industrial on-site delivery.">我们是一家专注于具身智能产业落地的科技公司。核心研发与工程班底由清华、人大硕博及资深机器人研发人员组成，技术能力覆盖物理大模型训练、端侧推理、视觉伺服、机器人系统集成与工业现场交付。</p><p data-en="The team has not stopped at simulation or demos. We have connected the full technical chain — data collection, model training, deployment on physical machines, on-site tuning and data return — and the system has been validated in an operating factory in Shenzhen. We are currently pushing into flexible loading and unloading in manufacturing.">团队并非停留在仿真或演示阶段。目前我们已经打通数据采集、模型训练、真机部署、现场调优与数据回流的完整技术链路，相关系统已在深圳真实工厂完成落地验证，正在持续推进制造业柔性上下料等场景。</p><h4 data-en="What you will do">二、岗位职责</h4><ol><li data-en="Own pre-training and post-training of the physical foundation model: data pipeline, training framework, distributed parallelism, evaluation protocol and capability iteration.">负责物理大模型的预训练与后训练：数据链路、训练框架、分布式并行、评测方案与能力迭代；</li><li data-en="Turn data flowing back from real lines into model capability: cleaning, curriculum design, fine-tuning and reinforcement learning.">把真实产线回流的数据变成模型能力：数据清洗、课程设计、微调与强化学习；</li><li data-en="Design and maintain offline and online evaluation protocols so that every iteration can be measured.">设计并维护离线与在线评测方案，让每一次迭代都能被量化；</li><li data-en="The model you own has to work on a real line, not only on a benchmark.">你负责的模型必须在真实产线上跑通，而不只是在基准上好看。</li></ol><h4 data-en="We are looking for">三、我们在找</h4><ul><li data-en="Master&#x27;s or PhD in a related field, with solid experience training large models or VLA / robot-learning models.">硕士及以上相关专业，具备扎实的大模型或 VLA / 机器人学习模型训练经验；</li><li data-en="Deep familiarity with PyTorch and distributed training; able to locate and fix problems inside the training stack itself.">深度熟悉 PyTorch 与分布式训练，能够定位并修复训练栈内部的问题；</li><li data-en="Publications at top venues, or open-source work that other people actually use — either is a strong signal.">有顶会论文，或有被别人真正使用的开源工作 —— 两者都是很强的信号。</li></ul><h4 data-en="What you get">四、你将获得</h4><ol><li data-en="Competitive compensation, plus participation in the company equity incentive plan under its standard terms.">有竞争力的薪酬，并按公司统一标准参与股权激励计划；</li><li data-en="Work with a core team of Tsinghua and Renmin masters and PhDs; problems come from a real line and answers go back to the line to be proven.">与清华、人大硕博背景的核心团队一起工作，问题来自真实产线，答案回到真实产线验证；</li><li data-en="Real robots, real industrial data, a real production line — what you own has to run on the floor.">真实的机器人、真实的工业数据、真实的产线 —— 你负责的东西必须在车间里跑通；</li><li data-en="A flat R&amp;D environment where early members have a real say in technical direction and product form.">扁平化的研发环境，早期成员对技术方案和产品形态有实质话语权；</li><li data-en="Shenzhen and Beijing, with no wall between frontier research and the factory floor.">深圳与北京两地，前沿研究与工业现场之间没有隔墙。</li></ol></div>
+  <aside class="aside">
+    <div class="card">
+      <h5 data-en="Apply">投递简历</h5>
+      <p data-en="Email your CV to hr@phyture.ai, with the role in the subject line. Anything you built yourself that actually runs is welcome too.">简历发到 hr@phyture.ai，邮件标题写上岗位名。你亲手做出来并且真的能跑的东西，也请一并发来。</p>
+      <a class="btn btn-p" href="mailto:hr@phyture.ai?subject=%E5%BA%94%E8%81%98%EF%BC%9A%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88"><span data-en="Email your CV">发送简历</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="card qr">
+      <h5 data-en="Share">转发这个岗位</h5>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 37 37" role="img" aria-label="QR"><rect x="-2" y="-2" width="37" height="37" fill="#fff"/><path d="M0 0h7v1H0zM9 0h2v1H9zM13 0h1v1H13zM16 0h2v1H16zM19 0h2v1H19zM22 0h2v1H22zM26 0h7v1H26zM0 1h1v1H0zM6 1h1v1H6zM11 1h1v1H11zM13 1h4v1H13zM18 1h1v1H18zM20 1h2v1H20zM26 1h1v1H26zM32 1h1v1H32zM0 2h1v1H0zM2 2h3v1H2zM6 2h1v1H6zM8 2h1v1H8zM10 2h4v1H10zM15 2h2v1H15zM21 2h2v1H21zM26 2h1v1H26zM28 2h3v1H28zM32 2h1v1H32zM0 3h1v1H0zM2 3h3v1H2zM6 3h1v1H6zM8 3h5v1H8zM14 3h1v1H14zM16 3h2v1H16zM22 3h1v1H22zM24 3h1v1H24zM26 3h1v1H26zM28 3h3v1H28zM32 3h1v1H32zM0 4h1v1H0zM2 4h3v1H2zM6 4h1v1H6zM8 4h1v1H8zM12 4h1v1H12zM15 4h1v1H15zM18 4h6v1H18zM26 4h1v1H26zM28 4h3v1H28zM32 4h1v1H32zM0 5h1v1H0zM6 5h1v1H6zM8 5h2v1H8zM13 5h1v1H13zM15 5h4v1H15zM20 5h1v1H20zM24 5h1v1H24zM26 5h1v1H26zM32 5h1v1H32zM0 6h7v1H0zM8 6h1v1H8zM10 6h1v1H10zM12 6h1v1H12zM14 6h1v1H14zM16 6h1v1H16zM18 6h1v1H18zM20 6h1v1H20zM22 6h1v1H22zM24 6h1v1H24zM26 6h7v1H26zM8 7h1v1H8zM15 7h1v1H15zM18 7h4v1H18zM23 7h2v1H23zM0 8h1v1H0zM2 8h5v1H2zM9 8h1v1H9zM13 8h3v1H13zM17 8h1v1H17zM22 8h1v1H22zM26 8h5v1H26zM0 9h1v1H0zM2 9h1v1H2zM5 9h1v1H5zM7 9h1v1H7zM12 9h1v1H12zM16 9h6v1H16zM23 9h1v1H23zM26 9h2v1H26zM29 9h2v1H29zM32 9h1v1H32zM2 10h1v1H2zM4 10h6v1H4zM11 10h1v1H11zM15 10h3v1H15zM20 10h3v1H20zM24 10h3v1H24zM28 10h1v1H28zM30 10h2v1H30zM1 11h2v1H1zM4 11h1v1H4zM8 11h3v1H8zM12 11h1v1H12zM14 11h3v1H14zM18 11h2v1H18zM21 11h1v1H21zM25 11h1v1H25zM28 11h4v1H28zM3 12h1v1H3zM6 12h1v1H6zM10 12h1v1H10zM15 12h1v1H15zM17 12h1v1H17zM22 12h1v1H22zM25 12h1v1H25zM27 12h3v1H27zM32 12h1v1H32zM0 13h1v1H0zM2 13h4v1H2zM14 13h3v1H14zM18 13h4v1H18zM23 13h1v1H23zM26 13h2v1H26zM29 13h4v1H29zM0 14h1v1H0zM2 14h1v1H2zM6 14h4v1H6zM11 14h3v1H11zM21 14h2v1H21zM25 14h2v1H25zM29 14h3v1H29zM0 15h3v1H0zM4 15h2v1H4zM7 15h1v1H7zM10 15h1v1H10zM12 15h1v1H12zM14 15h1v1H14zM16 15h1v1H16zM19 15h5v1H19zM25 15h6v1H25zM0 16h1v1H0zM2 16h1v1H2zM6 16h1v1H6zM10 16h3v1H10zM17 16h1v1H17zM19 16h1v1H19zM23 16h1v1H23zM25 16h1v1H25zM27 16h2v1H27zM32 16h1v1H32zM0 17h1v1H0zM7 17h4v1H7zM12 17h1v1H12zM14 17h1v1H14zM16 17h1v1H16zM18 17h3v1H18zM23 17h1v1H23zM25 17h3v1H25zM29 17h2v1H29zM32 17h1v1H32zM0 18h5v1H0zM6 18h1v1H6zM8 18h1v1H8zM11 18h6v1H11zM20 18h2v1H20zM27 18h2v1H27zM30 18h2v1H30zM0 19h1v1H0zM2 19h1v1H2zM5 19h1v1H5zM7 19h1v1H7zM10 19h2v1H10zM16 19h1v1H16zM19 19h3v1H19zM24 19h2v1H24zM27 19h4v1H27zM1 20h2v1H1zM6 20h3v1H6zM11 20h1v1H11zM17 20h1v1H17zM19 20h1v1H19zM22 20h4v1H22zM27 20h3v1H27zM31 20h1v1H31zM0 21h3v1H0zM4 21h2v1H4zM7 21h2v1H7zM10 21h1v1H10zM14 21h2v1H14zM18 21h3v1H18zM23 21h1v1H23zM26 21h1v1H26zM29 21h2v1H29zM32 21h1v1H32zM0 22h1v1H0zM6 22h1v1H6zM8 22h1v1H8zM10 22h1v1H10zM15 22h2v1H15zM20 22h1v1H20zM22 22h1v1H22zM30 22h2v1H30zM0 23h1v1H0zM4 23h1v1H4zM9 23h3v1H9zM13 23h2v1H13zM16 23h1v1H16zM20 23h2v1H20zM23 23h1v1H23zM27 23h1v1H27zM30 23h1v1H30zM32 23h1v1H32zM0 24h1v1H0zM2 24h5v1H2zM11 24h3v1H11zM17 24h1v1H17zM22 24h1v1H22zM24 24h5v1H24zM32 24h1v1H32zM8 25h1v1H8zM10 25h1v1H10zM12 25h1v1H12zM14 25h1v1H14zM19 25h1v1H19zM23 25h2v1H23zM28 25h1v1H28zM30 25h1v1H30zM32 25h1v1H32zM0 26h7v1H0zM10 26h3v1H10zM15 26h2v1H15zM20 26h5v1H20zM26 26h1v1H26zM28 26h1v1H28zM30 26h2v1H30zM0 27h1v1H0zM6 27h1v1H6zM8 27h4v1H8zM13 27h2v1H13zM21 27h4v1H21zM28 27h5v1H28zM0 28h1v1H0zM2 28h3v1H2zM6 28h1v1H6zM8 28h1v1H8zM11 28h2v1H11zM14 28h2v1H14zM17 28h1v1H17zM19 28h1v1H19zM24 28h6v1H24zM31 28h2v1H31zM0 29h1v1H0zM2 29h3v1H2zM6 29h1v1H6zM8 29h4v1H8zM14 29h1v1H14zM19 29h3v1H19zM24 29h2v1H24zM28 29h2v1H28zM31 29h2v1H31zM0 30h1v1H0zM2 30h3v1H2zM6 30h1v1H6zM8 30h2v1H8zM12 30h1v1H12zM14 30h2v1H14zM17 30h2v1H17zM20 30h2v1H20zM26 30h2v1H26zM29 30h2v1H29zM0 31h1v1H0zM6 31h1v1H6zM9 31h3v1H9zM14 31h1v1H14zM18 31h1v1H18zM20 31h3v1H20zM25 31h2v1H25zM28 31h3v1H28zM0 32h7v1H0zM8 32h6v1H8zM15 32h3v1H15zM19 32h1v1H19zM22 32h3v1H22zM27 32h1v1H27zM31 32h1v1H31z" fill="#0F1E36"/></svg>
+      <p data-en="Scan or long-press in WeChat to open this page, then forward it to someone who fits.">微信扫码或长按识别打开本页，转发给合适的人。</p>
+      <small>phyture.ai/careers/embodied-ai-algorithm-engineer/</small>
+    </div>
+    <div class="card">
+      <h5 data-en="Other openings">其他岗位</h5>
+      <ul><li><a href="../embodied-ai-algorithm-intern/index.html"><span data-en="Embodied AI Algorithm Intern">具身智能算法实习生</span><span class="m" data-en="Shenzhen">深圳</span></a></li><li><a href="../industry-analyst-intern/index.html"><span data-en="Embodied AI Industry Analyst (Intern)">具身智能行业分析员（实习）</span><span class="m" data-en="Shenzhen">深圳</span></a></li><li><a href="../robot-systems-engineer/index.html"><span data-en="Robot Systems Engineer">机器人系统工程师</span><span class="m" data-en="Shenzhen">深圳</span></a></li><li><a href="../hardware-mechatronics-engineer/index.html"><span data-en="Hardware / Mechatronics Engineer">硬件 / 机电工程师</span><span class="m" data-en="Shenzhen">深圳</span></a></li><li><a href="../index.html"><span data-en="All openings →">全部岗位 →</span></a></li></ul>
+    </div>
+  </aside>
+</div>
+</div>
+
+<footer>
+<div class="wrap">
+  <div class="fgrid">
+    <div>
+      <p style="color:#fff;font-weight:800;letter-spacing:1.6px;font-size:18px;margin-bottom:10px"><span class="z">Z</span>phyture AI</p>
+      <p data-en="Shenzhen Phyture AI Technology Co., Ltd.">深圳市智遇未来科技有限公司</p>
+      <p style="margin-top:14px;max-width:26em" data-en="Physical foundation models for the real world.">面向真实世界的物理大模型。</p>
+    </div>
+    <div>
+      <h5 data-en="Careers">加入我们</h5>
+      <ul><li><a href="../../careers/embodied-ai-algorithm-intern/index.html" data-en="Embodied AI Algorithm Intern">具身智能算法实习生</a></li><li><a href="../../careers/industry-analyst-intern/index.html" data-en="Embodied AI Industry Analyst (Intern)">具身智能行业分析员（实习）</a></li><li><a href="../../careers/embodied-ai-algorithm-engineer/index.html" data-en="Embodied AI Algorithm Engineer">具身智能算法工程师</a></li><li><a href="../../careers/robot-systems-engineer/index.html" data-en="Robot Systems Engineer">机器人系统工程师</a></li><li><a href="../../careers/hardware-mechatronics-engineer/index.html" data-en="Hardware / Mechatronics Engineer">硬件 / 机电工程师</a></li><li><a href="../../careers/index.html" data-en="All openings →">全部岗位 →</a></li></ul>
+    </div>
+    <div>
+      <h5 data-en="Contact">联系</h5>
+      <p><a href="mailto:contact@phyture.ai">contact@phyture.ai</a><br><span data-en="General &amp; partnerships">合作与咨询</span></p>
+      <p style="margin-top:12px"><a href="mailto:hr@phyture.ai">hr@phyture.ai</a><br><span data-en="Recruiting">简历投递</span></p>
+    </div>
+    <div>
+      <h5 data-en="Offices">地点</h5>
+      <p data-en="Shenzhen · Shenzhen University Town, Nanshan District">深圳 · 南山区深圳大学城</p>
+      <p style="margin-top:10px" data-en="Beijing · Wudaokou, Haidian District">北京 · 海淀区五道口</p>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>&copy; 2026 <span data-en="Shenzhen Phyture AI Technology Co., Ltd.">深圳市智遇未来科技有限公司</span></span>
+    <span>phyture.ai</span>
+  </div>
+</div>
+</footer>
+<script>
+(function(){
+  var en = false, btn = document.getElementById('lang'), nodes = document.querySelectorAll('[data-en]');
+  nodes.forEach(function(n){ n.setAttribute('data-zh', n.innerHTML); });
+  var titles = document.body.getAttribute('data-title-zh') ? [document.body.getAttribute('data-title-zh'), document.body.getAttribute('data-title-en')] : null;
+  function apply(){
+    nodes.forEach(function(n){ n.innerHTML = en ? n.getAttribute('data-en') : n.getAttribute('data-zh'); });
+    document.documentElement.lang = en ? 'en' : 'zh-CN';
+    if (btn) btn.textContent = en ? '中文' : 'EN';
+    if (titles) document.title = en ? titles[1] : titles[0];
+  }
+  if (btn) btn.addEventListener('click', function(){ en = !en; apply(); });
+  var burger = document.getElementById('burger'), links = document.getElementById('navlinks');
+  if (burger) burger.addEventListener('click', function(){ links.classList.toggle('open'); });
+  if (links) links.addEventListener('click', function(e){ if (e.target.tagName === 'A') links.classList.remove('open'); });
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+    rv.forEach(function(n){ io.observe(n); });
+  } else { rv.forEach(function(n){ n.classList.add('in'); }); }
+})();
+</script>
+</body>
+</html>
