@@ -37,7 +37,8 @@ a{color:inherit;text-decoration:none}
 .wrap{width:100%;max-width:720px;margin:0 auto;padding:0 24px}
 header{border-bottom:1px solid var(--line);background:rgba(255,255,255,.92)}
 .nav{display:flex;align-items:center;height:64px}
-.brand{display:flex;flex-direction:column;line-height:1.2}
+.brand{display:flex;align-items:center;gap:10px;line-height:1.2}
+.brand .mk{flex:none;width:28px;height:28px;border-radius:7px;background:var(--navy);color:var(--acc);display:inline-flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;line-height:1}
 .brand b{font-size:19px;font-weight:800;letter-spacing:3px;color:var(--navy);line-height:1.25}
 main{flex:1;padding:56px 0 48px}
 .eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;color:var(--teal);margin-bottom:14px}
@@ -71,7 +72,7 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
 <body>
 <div style="display:none" aria-hidden="true"><img src="share-v1.jpg" alt="" width="1000" height="1000"></div>
 <header><div class="wrap nav">
-  <a class="brand" href="../index.html" aria-label="智遇未来"><b>智遇未来</b></a>
+  <a class="brand" href="../index.html" aria-label="智遇未来"><span class="mk" aria-hidden="true">智</span><b>智遇未来</b></a>
 </div></header>
 
 <main><div class="wrap">
