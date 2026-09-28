@@ -1,11 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" itemscope itemtype="https://schema.org/WebPage">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Teaser · Phyture AI 智遇未来</title>
+<title>智遇未来 · 种子轮 Teaser</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Phyture AI 智遇未来 · 种子轮 Teaser 下载">
+<meta name="description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
+<!-- 分享卡片：微信「收藏 → 转发」/ 朋友圈、飞书、钉钉读 og:*，QQ 读 itemprop，老版微信 / 企业微信取正文第一张图。
+     换图时文件名升版本（share-v2.jpg），本页四处一起改：og:image、itemprop=image、apple-touch-icon、正文第一行隐藏图（微信按图片地址缓存）。 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="智遇未来">
+<meta property="og:url" content="https://phyture.ai/teaser/">
+<meta property="og:title" content="智遇未来 · 种子轮 Teaser">
+<meta property="og:description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
+<meta property="og:image" content="https://phyture.ai/teaser/share-v1.jpg">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="1000">
+<meta property="og:image:alt" content="智遇未来">
+<meta name="twitter:card" content="summary">
+<meta itemprop="name" content="智遇未来 · 种子轮 Teaser">
+<meta itemprop="description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
+<meta itemprop="image" content="https://phyture.ai/teaser/share-v1.jpg">
+<link rel="apple-touch-icon" href="share-v1.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1E36'/%3E%3Ctext x='50' y='52' font-family='Helvetica,Arial,sans-serif' font-size='62' font-weight='800' fill='%2300C2A8' text-anchor='middle' dominant-baseline='central'%3EZ%3C/text%3E%3C/svg%3E">
 <style>
 :root{
@@ -32,7 +48,6 @@ h1{font-size:28px;line-height:1.35;color:var(--navy);font-weight:800;margin-bott
   transition:.2s;border:1px solid transparent;cursor:pointer;white-space:nowrap;background:var(--acc);color:#03231e}
 .btn:hover{background:#25d8bf}
 .btn svg{flex:none}
-.meta{font-size:13px;color:var(--muted);margin-top:14px}
 .note{background:var(--grey);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:36px;font-size:14px;line-height:1.75}
 .note p+p{margin-top:10px}
 .note b{color:var(--navy)}
@@ -43,6 +58,7 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
 </style>
 </head>
 <body>
+<div style="display:none" aria-hidden="true"><img src="share-v1.jpg" alt="" width="1000" height="1000"></div>
 <header><div class="wrap nav">
   <a class="brand" href="../index.html" aria-label="Phyture AI"><b><span class="z">Z</span>phyture AI</b><span class="cn">智遇未来</span></a>
 </div></header>
@@ -55,7 +71,6 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M6 11l6 6 6-6M4 21h16"/></svg>
     查看 / 下载 Teaser（PDF）
   </a>
-  <p class="meta" id="meta">最新版本</p>
 
   <div class="note">
     <p><b>在微信里打开？</b>点上面的按钮可直接预览；要转发给同事或保存文件，用右上角「···」。</p>
@@ -66,12 +81,5 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
 </div></main>
 
 <footer><div class="wrap">深圳市智遇未来科技有限公司 · phyture.ai</div></footer>
-
-<script>
-fetch('PhytureAI_Teaser.pdf',{method:'HEAD',cache:'no-store'}).then(function(r){
-  var lm=r.headers.get('last-modified');
-  if(lm){var d=new Date(lm);document.getElementById('meta').textContent='最新版本 · 更新于 '+d.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});}
-}).catch(function(){});
-</script>
 </body>
 </html>
