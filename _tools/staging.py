@@ -2,12 +2,14 @@
 """智遇未来官网 · 测试区工具（生产 phyture.ai/  <->  测试 phyture.ai/test/）
 
 根目录 = 生产；test/ = 生产的完整镜像。镜像时把本站绝对地址 https://phyture.ai/ 改写成
-https://phyture.ai/test/（og:url、og:image 等，否则测试页的微信卡片会去取生产的图），promote 时再改回。
+https://phyture.ai/test/（og:url、og:image 等，否则测试页的微信卡片会去取生产的图），并给页面加测试版标记
+（橙色边框、底部「测试版 · 请勿外发」、标题前【测试】）；promote 时两样都原样去掉。
 
   python3 _tools/staging.py status               test 与生产差在哪、git 状态、下一步做什么
   python3 _tools/staging.py sync [--force]       把生产的新改动带进 test/（保留 test 里没上线的改动，两边都改过就尝试合并；
                                                  --force 整个按生产重建）
   python3 _tools/staging.py adopt                根目录被直接改了：把改动挪进 test/，根目录恢复成已上线版本
+  python3 _tools/staging.py mark                 给 test/ 里缺标记的页面补上测试版标记
   python3 _tools/staging.py check [--stage test|prod] [--bootstrap]
                                                  查链接、本站绝对地址、分享卡片（og:*）；--stage 再核对这次要提交的范围
   python3 _tools/staging.py promote [--yes] [--delete] [--override]
@@ -36,10 +38,66 @@ SIDE_NOTE = {'test': '', 'prod': '   <- 生产在 test 之后被直接改过（�
 def is_text(rel):
     return os.path.splitext(rel)[1].lower() in TEXT_EXT
 
-def to_test(b):
-    return b.replace(PROD_URL.encode(), TEST_URL.encode())
+def is_html(rel):
+    return rel.lower().endswith(('.html', '.htm'))
 
-def to_prod(b):
+# 测试版标记：只加在 test/ 的页面上（橙色边框 + 底部「测试版 · 请勿外发」+ 标题前【测试】），promote 时原样去掉
+TAG = '【测试】'.encode()
+TITLE_SPOTS = [b'<title>', b'<meta property="og:title" content="', b'<meta itemprop="name" content="']
+MARK_BEGIN, MARK_END = b'<!--staging:test-->', b'<!--/staging:test-->'
+MARK = (MARK_BEGIN + '<style>'
+        '.__stg-frame{position:fixed;top:0;right:0;bottom:0;left:0;border:4px solid #FF6A00;pointer-events:none;z-index:2147483646}'
+        '.__stg-pill{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);'
+        'z-index:2147483647;pointer-events:none;background:#FF6A00;color:#fff;border-radius:999px;padding:9px 16px;'
+        'font:700 13px/1 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.08em;'
+        'white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)}'
+        '</style><div class="__stg-frame" aria-hidden="true"></div>'
+        '<div class="__stg-pill" aria-hidden="true">测试版 · 请勿外发</div>'.encode() + MARK_END + b'\n')
+
+def add_mark(b):
+    for spot in TITLE_SPOTS:                      # 每种位置只动第一处
+        i = b.find(spot)
+        if i >= 0:
+            j = i + len(spot)
+            b = b[:j] + TAG + b[j:]
+    i = b.rfind(b'</body>')
+    return b[:i] + MARK + b[i:] if i >= 0 else b
+
+def strip_mark(b):
+    for spot in TITLE_SPOTS:
+        i = b.find(spot)
+        if i >= 0:
+            j = i + len(spot)
+            if b[j:j + len(TAG)] == TAG:
+                b = b[:j] + b[j + len(TAG):]
+    i = b.find(MARK_BEGIN)
+    if i >= 0:
+        k = b.find(MARK_END, i)
+        if k >= 0:
+            k += len(MARK_END)
+            if b[k:k + 1] == b'\n':
+                k += 1
+            b = b[:i] + b[k:]
+    return b
+
+def has_mark(b):
+    """(有标记块, 标题带【测试】)"""
+    i = b.find(b'<title>')
+    return MARK_BEGIN in b, i >= 0 and b[i + 7:i + 7 + len(TAG)] == TAG
+
+def fwd(rel, b):
+    """生产 → 测试：本站绝对地址改成 /test/，页面加测试版标记"""
+    if b is None or not is_text(rel):
+        return b
+    b = b.replace(PROD_URL.encode(), TEST_URL.encode())
+    return add_mark(b) if is_html(rel) else b
+
+def inv(rel, b):
+    """测试 → 生产：去掉测试版标记，地址改回生产"""
+    if b is None or not is_text(rel):
+        return b
+    if is_html(rel):
+        b = strip_mark(b)
     return b.replace(TEST_URL.encode(), PROD_URL.encode())
 
 def read(p):
@@ -132,7 +190,7 @@ def compare():
         b = read(p)
         if r not in prod:
             diffs.append((r, 'added'))
-        elif read(prod[r]) != (to_prod(b) if is_text(r) else b):
+        elif read(prod[r]) != inv(r, b):
             diffs.append((r, 'changed'))
     diffs += [(r, 'removed') for r in prod if r not in test]
     return sorted(diffs)
@@ -148,7 +206,7 @@ def base_of(r):
             continue
         pk = _git(['show', f'{k}:{r}'], text=False)
         seen, base = True, pk
-        if (to_test(pk) if pk is not None and is_text(r) else pk) == tk:
+        if inv(r, tk) == pk:                       # 在生产形态下比（与测试版标记的写法无关）
             break
     return seen, base
 
@@ -173,11 +231,10 @@ def side(r):
     seen, base = base_of(r)
     if not seen:                                   # test 里这个文件还没提交过
         return 'test' if t_cur is not None else 'prod'
-    fx = lambda b: b if b is None or not is_text(r) else to_test(b)
-    t_edit, p_edit = t_cur != fx(base), p_cur != base
+    t_edit, p_edit = inv(r, t_cur) != base, p_cur != base
     if t_edit and p_edit:
         if is_text(r) and t_cur is not None and p_cur is not None:
-            ours = to_prod(t_cur)
+            ours = inv(r, t_cur)
             if merge3(base, ours, p_cur) == ours:  # 生产那边的改动已经在 test 里了（人工合并过）
                 return 'test'
         return 'both'
@@ -249,7 +306,14 @@ def check_scope(sub, errs, warns, infos, focus=()):
     for r, p in files.items():
         if not is_text(r):
             continue
-        s = read(p).decode('utf-8', 'replace')
+        raw = read(p)
+        s = raw.decode('utf-8', 'replace')
+        if is_html(r):                                          # 测试版标记
+            blk, ttl = has_mark(raw)
+            if sub and fwd(r, inv(r, raw)) != raw:
+                warns.append(f'{tag}{r}  测试版标记缺失或位置不对（运行 python3 _tools/staging.py mark）')
+            if not sub and (blk or any(spot + TAG in raw for spot in TITLE_SPOTS)):
+                errs.append(f'{tag}{r}  生产页面里带着测试版标记（{TAG.decode()} 或 staging:test）')
         for n, line in enumerate(s.splitlines(), 1):          # 本站绝对地址
             if sub and line.replace(TEST_URL, '').count(PROD_URL):
                 errs.append(f'{tag}{r}:{n}  指向生产的绝对地址（test 里应写 {TEST_URL}…）')
@@ -332,12 +396,15 @@ def cmd_status(a):
         if other:
             print('  其他未提交：', brief(other))
     sides = {s for _, _, s in diffs}
+    unmarked = [r for r, p in list_files(TEST).items() if is_html(r) and fwd(r, inv(r, read(p))) != read(p)]
     if ab and ab[1]:
         step = '先在自己电脑上 git pull，拿到最新的线上版本'
     elif rd and not diffs:
         step = '已 promote、还没提交：check --stage prod 通过后提交并推送（上线）'
     elif rd:
         step = '根目录被直接改了：python3 _tools/staging.py adopt（改动挪进 test/，根目录恢复）'
+    elif unmarked:
+        step = f'test/ 有 {len(unmarked)} 个页面的测试版标记缺失或位置不对：python3 _tools/staging.py mark'
     elif 'both' in sides:
         step = '有冲突（同一文件 test 和生产都改过）：先 sync 尝试自动合并；合并不了就人工把生产的改动补进 test/'
     elif 'prod' in sides:
@@ -362,7 +429,7 @@ def put_test(r):
     b = read_opt(src)
     if b is None:
         return remove(dst) or not os.path.exists(dst)
-    write(dst, to_test(b) if is_text(r) else b)
+    write(dst, fwd(r, b))
     return True
 
 def cmd_sync(a):
@@ -383,9 +450,9 @@ def cmd_sync(a):
         for r, k, s in diffs:
             if s == 'both' and k == 'changed' and is_text(r):   # 两边都改过：能干净合并就合并进 test
                 tp = os.path.join(ROOT, TEST, r)
-                m = merge3(base_of(r)[1], to_prod(read(tp)), read(os.path.join(ROOT, r)))
+                m = merge3(base_of(r)[1], inv(r, read(tp)), read(os.path.join(ROOT, r)))
                 if m is not None:
-                    write(tp, to_test(m))
+                    write(tp, fwd(r, m))
                     merged.append(r)
                     continue
             if s != 'prod':
@@ -432,7 +499,7 @@ def cmd_adopt(a):
     for p, b in saved.items():                     # 改动写进 test/
         dst = os.path.join(ROOT, TEST, p)
         if b is not None:
-            write(dst, to_test(b) if is_text(p) else b)
+            write(dst, fwd(p, b))
         elif os.path.exists(dst) and not remove(dst):
             failed.append(TEST + '/' + p)
     print(f'已把 {len(rd)} 个改动挪进 test/，根目录恢复成已上线版本：')
@@ -441,6 +508,20 @@ def cmd_adopt(a):
     for p in failed:
         print('  没删掉（没有删除权限？请手动删）：', p)
     return 1 if failed else 0
+
+def cmd_mark(a):
+    """把 test/ 里的页面规范成「生产版本 + 测试版标记」：补上缺的标记（改动内容不受影响）"""
+    n = 0
+    for r, p in list_files(TEST).items():
+        if not is_html(r):
+            continue
+        b = read(p)
+        want = fwd(r, inv(r, b))
+        if want != b:
+            write(p, want)
+            n += 1
+    print(f'已规范 test/ 里 {n} 个页面的测试版标记' if n else 'test/ 里的页面测试版标记都正常')
+    return 0
 
 def cmd_check(a):
     errs, warns, infos = [], [], []
@@ -529,7 +610,7 @@ def cmd_promote(a):
             (done if a.delete and remove(os.path.join(ROOT, r)) else left).append(r)
             continue
         b = read(os.path.join(ROOT, TEST, r))
-        write(os.path.join(ROOT, r), to_prod(b) if is_text(r) else b)
+        write(os.path.join(ROOT, r), inv(r, b))
         done.append(r)
     print(f'已写回根目录：{len(done)} 个')
     for r in left:
@@ -545,6 +626,7 @@ def main():
     sp = ap.add_subparsers(dest='cmd')
     sp.add_parser('status')
     sp.add_parser('adopt')
+    sp.add_parser('mark')
     s = sp.add_parser('sync')
     s.add_argument('--force', action='store_true')
     c = sp.add_parser('check')
@@ -555,7 +637,8 @@ def main():
     p.add_argument('--delete', action='store_true')
     p.add_argument('--override', action='store_true')
     a = ap.parse_args()
-    fn = {'status': cmd_status, 'sync': cmd_sync, 'adopt': cmd_adopt, 'check': cmd_check, 'promote': cmd_promote}.get(a.cmd)
+    fn = {'status': cmd_status, 'sync': cmd_sync, 'adopt': cmd_adopt, 'mark': cmd_mark,
+          'check': cmd_check, 'promote': cmd_promote}.get(a.cmd)
     if not fn:
         ap.print_help()
         return 0

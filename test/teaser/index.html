@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>智遇未来 · 种子轮 Teaser</title>
+<meta name="format-detection" content="telephone=no">
+<title>【测试】智遇未来 · 种子轮 Teaser</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
 <!-- 分享卡片：微信「收藏 → 转发」/ 朋友圈、飞书、钉钉读 og:*，QQ 读 itemprop，老版微信 / 企业微信取正文第一张图。
@@ -11,14 +12,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="智遇未来">
 <meta property="og:url" content="https://phyture.ai/test/teaser/">
-<meta property="og:title" content="智遇未来 · 种子轮 Teaser">
+<meta property="og:title" content="【测试】智遇未来 · 种子轮 Teaser">
 <meta property="og:description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
 <meta property="og:image" content="https://phyture.ai/test/teaser/share-v1.jpg">
 <meta property="og:image:width" content="1000">
 <meta property="og:image:height" content="1000">
 <meta property="og:image:alt" content="智遇未来">
 <meta name="twitter:card" content="summary">
-<meta itemprop="name" content="智遇未来 · 种子轮 Teaser">
+<meta itemprop="name" content="【测试】智遇未来 · 种子轮 Teaser">
 <meta itemprop="description" content="ROI 最高的工业具身智能落地：进厂真干活，半年全回本。">
 <meta itemprop="image" content="https://phyture.ai/test/teaser/share-v1.jpg">
 <link rel="apple-touch-icon" href="share-v1.jpg">
@@ -54,6 +55,18 @@ h1{font-size:28px;line-height:1.35;color:var(--navy);font-weight:800;margin-bott
 .contact{margin-top:28px;font-size:14px;color:var(--muted)}
 .contact a{color:var(--teal)}
 footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(--muted)}
+.wx{margin-top:28px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.wx-main{display:flex;align-items:center;gap:18px;padding:16px 18px}
+.wx-qr{width:136px;height:136px;flex:none;display:block}
+.wx-t{min-width:0}
+.wx-k{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--teal)}
+.wx-n{font-size:18px;font-weight:800;color:var(--navy);line-height:1.35;margin-top:2px}
+.wx-r{font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.wx-how{font-size:13.5px;line-height:1.6;color:var(--body)}
+.wx-id{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 18px;border-top:1px solid var(--line);background:var(--grey);font-size:14px;color:var(--muted)}
+.wx-id b{color:var(--navy);font-weight:700;letter-spacing:.5px;margin-left:6px}
+.wx-cp{flex:none;border:1px solid var(--acc);background:#fff;color:var(--teal);border-radius:999px;padding:6px 16px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+@media (max-width:340px){.wx-main{flex-direction:column;align-items:flex-start}}
 @media (max-width:480px){h1{font-size:24px} main{padding:40px 0 36px} .btn{width:100%;justify-content:center}}
 </style>
 </head>
@@ -72,6 +85,19 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
     查看 / 下载 Teaser（PDF）
   </a>
 
+  <section class="wx" aria-label="加微信">
+    <div class="wx-main">
+      <img class="wx-qr" src="wechat-qr.png" width="136" height="136" alt="彭俊坤的微信二维码">
+      <div class="wx-t">
+        <p class="wx-k">加微信</p>
+        <p class="wx-n">彭俊坤</p>
+        <p class="wx-r">创始人 / CEO</p>
+        <p class="wx-how">长按识别二维码<br>电脑上用微信扫一扫</p>
+      </div>
+    </div>
+    <div class="wx-id"><span>微信号<b>18616943455</b></span><button type="button" class="wx-cp" data-v="18616943455">复制</button></div>
+  </section>
+
   <div class="note">
     <p><b>在微信里打开？</b>点上面的按钮可直接预览；要转发给同事或保存文件，用右上角「···」。</p>
     <p>商业计划书只提供给来深圳大学城现场交流、看过真机的机构：半小时看机器干活，签署保密协议后当天发送。</p>
@@ -81,5 +107,20 @@ footer{border-top:1px solid var(--line);padding:20px 0;font-size:12px;color:var(
 </div></main>
 
 <footer><div class="wrap">深圳市智遇未来科技有限公司 · phyture.ai</div></footer>
+<script>
+(function(){
+  function fallback(v){var t=document.createElement("textarea");t.value=v;t.setAttribute("readonly","");
+    t.style.position="fixed";t.style.top="0";t.style.opacity="0";document.body.appendChild(t);
+    t.select();t.setSelectionRange(0,v.length);var ok=false;try{ok=document.execCommand("copy")}catch(e){}
+    document.body.removeChild(t);return ok;}
+  document.querySelectorAll(".wx-cp").forEach(function(b){b.addEventListener("click",function(){
+    var v=b.getAttribute("data-v");
+    function done(ok){b.textContent=ok?"已复制":"请长按号码复制";setTimeout(function(){b.textContent="复制"},2500);}
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(v).then(function(){done(true)},function(){done(fallback(v))});}
+    else{done(fallback(v));}
+  });});
+})();
+</script>
+<!--staging:test--><style>.__stg-frame{position:fixed;top:0;right:0;bottom:0;left:0;border:4px solid #FF6A00;pointer-events:none;z-index:2147483646}.__stg-pill{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:2147483647;pointer-events:none;background:#FF6A00;color:#fff;border-radius:999px;padding:9px 16px;font:700 13px/1 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.08em;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)}</style><div class="__stg-frame" aria-hidden="true"></div><div class="__stg-pill" aria-hidden="true">测试版 · 请勿外发</div><!--/staging:test-->
 </body>
 </html>
